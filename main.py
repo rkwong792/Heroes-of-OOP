@@ -1,4 +1,5 @@
 import os
+import time
 
 from character import Hero, Goblin, Dragon
 
@@ -11,6 +12,7 @@ def battle(hero, enemy):
         print("1. Attack")
         print("2. Special Attack")
         print("3. Heal")
+        print(f"\n")
 
         choice = input("> ")
         if choice == "1":
@@ -29,6 +31,8 @@ def battle(hero, enemy):
             print("Invalid choice!")
 
         if enemy.isAlive():
+            print(f"\n")
+            time.sleep(2)
             enemy.attack(hero)
             hero.health_bar.draw()
             enemy.health_bar.draw()

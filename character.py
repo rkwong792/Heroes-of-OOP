@@ -33,7 +33,7 @@ class Hero(Character):
     
     def heal(self):
         if self.mana >= 5:
-            self.health = max(self.health + 15, self.health_max)
+            self.health = min(self.health + 15, self.health_max)
             self.mana -= 5
             print(f"{self.name} heals for 15 health.")
         else:

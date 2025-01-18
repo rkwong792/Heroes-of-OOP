@@ -4,4 +4,4 @@ This is a text-based role-playing game (RPG) designed to teach players about obj
 
 Reference: Ork Slayer Gamedev on YouTube / ChatGPT
 
-image.png
+![img.png](img.png)

@@ -1,56 +1,50 @@
-# ------------ imports ------------
-from weapon import fists
 from health_bar import HealthBar
 
-
-# ------------ parent class setup ------------
 class Character:
-    def __init__(self,
-                 name: str,
-                 health: int,
-                 ) -> None:
+    def __init__(self, name, health, health_max, strength):
         self.name = name
         self.health = health
-        self.health_max = health
+        self.health_max = health_max
+        self.strength = strength
 
-        self.weapon = fists
-
-    def attack(self, target) -> None:
-        target.health -= self.weapon.damage
-        target.health = max(target.health, 0)
+    def attack(self, target):
+        damage = self.strength
+        target.health -= damage
         target.health_bar.update()
-        print(f"{self.name} dealt {self.weapon.damage} damage to "
-              f"{target.name} with {self.weapon.name}")
+        print(f"{self.name} attacks {target.name} for {damage} damage!")
 
-
-# ------------ subclass setup ------------
+    def isAlive(self):
+        return self.health > 0
+    
 class Hero(Character):
-    def __init__(self,
-                 name: str,
-                 health: int
-                 ) -> None:
-        super().__init__(name=name, health=health)
-
-        self.default_weapon = self.weapon
+    def __init__(self, name, health, health_max, strength, mana):
+        super().__init__(name, health, health_max, strength)
+        self.mana = mana
         self.health_bar = HealthBar(self, color="green")
+    
+    def special_attack(self, target):
+        if self.mana >= 10:
+            damage = self.strength * 2
+            self.mana -= 10
+            target.health -= damage
+            print(f"{self.name} uses a special attack on {target.name} for {damage} damage!")
+        else:
+            print(f"{self.name} doesn't have enough mana for a special attack.")
+    
+    def heal(self):
+        if self.mana >= 5:
+            self.health +=15
+            self.mana -= 5
+            print(f"{self.name} heals for 15 health.")
+        else:
+            print(f"{self.name} doesn't have enough mana to heal.")
 
-    def equip(self, weapon) -> None:
-        self.weapon = weapon
-        print(f"{self.name} equipped a(n) {self.weapon.name}!")
+class Goblin(Character):
+    def __init__(self):
+        super().__init__("Goblin", 30, 30, 5)
+        self.health_bar = HealthBar(self, color="red")
 
-    def drop(self) -> None:
-        print(f"{self.name} dropped the {self.weapon.name}!")
-        self.weapon = self.default_weapon
-
-
-# ------------ subclass setup ------------
-class Enemy(Character):
-    def __init__(self,
-                 name: str,
-                 health: int,
-                 weapon,
-                 ) -> None:
-        super().__init__(name=name, health=health)
-        self.weapon = weapon
-
+class Dragon(Character):
+    def __init__(self):
+        super().__init__("Dragon", 100, 100, 20)
         self.health_bar = HealthBar(self, color="red")

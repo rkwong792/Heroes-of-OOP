@@ -9,7 +9,7 @@ class Character:
 
     def attack(self, target):
         damage = self.strength
-        target.health -= damage
+        target.health = max(target.health - damage, 0)
         target.health_bar.update()
         print(f"{self.name} attacks {target.name} for {damage} damage!")
 
@@ -26,14 +26,14 @@ class Hero(Character):
         if self.mana >= 10:
             damage = self.strength * 2
             self.mana -= 10
-            target.health -= damage
+            target.health = max(target.health - damage, 0)
             print(f"{self.name} uses a special attack on {target.name} for {damage} damage!")
         else:
             print(f"{self.name} doesn't have enough mana for a special attack.")
     
     def heal(self):
         if self.mana >= 5:
-            self.health +=15
+            self.health = max(self.health + 15, self.health_max)
             self.mana -= 5
             print(f"{self.name} heals for 15 health.")
         else:

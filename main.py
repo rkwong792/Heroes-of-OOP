@@ -46,7 +46,7 @@ def battle(hero, enemy):
 def main():
     print("Welcome to Heroes of OOP!")
     name = input("Enter your hero's name: ")
-    hero = Hero(name, 100, 100, 15, 30)
+    hero = Hero(name, 100, 15, 30)
 
     enemies = [Goblin(), Dragon()]
     for enemy in enemies:

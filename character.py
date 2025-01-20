@@ -2,10 +2,10 @@ from health_bar import HealthBar
 from mana_bar import ManaBar
 
 class Character:
-    def __init__(self, name, health, health_max, strength):
+    def __init__(self, name, health, strength):
         self.name = name
         self.health = health
-        self.health_max = health_max
+        self.health_max = health
         self.strength = strength
 
     def attack(self, target):
@@ -18,8 +18,8 @@ class Character:
         return self.health > 0
     
 class Hero(Character):
-    def __init__(self, name, health, health_max, strength, mana):
-        super().__init__(name, health, health_max, strength)
+    def __init__(self, name, health, strength, mana):
+        super().__init__(name, health, strength)
         self.mana = mana
         self.mana_max = mana
         self.health_bar = HealthBar(self, color="green")
@@ -49,10 +49,10 @@ class Hero(Character):
 
 class Goblin(Character):
     def __init__(self):
-        super().__init__("Goblin", 30, 30, 5)
+        super().__init__("Goblin", 30, 5)
         self.health_bar = HealthBar(self, color="red")
 
 class Dragon(Character):
     def __init__(self):
-        super().__init__("Dragon", 100, 100, 20)
+        super().__init__("Dragon", 100, 20)
         self.health_bar = HealthBar(self, color="red")
